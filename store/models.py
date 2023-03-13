@@ -1,6 +1,9 @@
 from django.db import models
 
 # Create your models here.
+class Promotion(models.Model):
+    description = models.CharField(max_length=100)
+    discount =models.FloatField()
 
 class Collection(models.Model):
     search = models.CharField(max_length=200)
@@ -11,6 +14,7 @@ class Product(models.Model):
     inventory = models.IntegerField()
     last_update = models.DateTimeField(auto_now=True) #auto_now will automatically save the current d/t field
     collection = models.ForeignKey(Collection,on_delete=models.PROTECT)
+    promotion = models.ManyToManyField(Promotion)
     
 class Customer(models.Model):
     MEMBERSHIP_BRONZE = 'B'
