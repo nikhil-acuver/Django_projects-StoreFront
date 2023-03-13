@@ -9,9 +9,31 @@ class Product(models.Model):
     last_update = models.DateTimeField(auto_now=True) #auto_now will automatically save the current d/t field
     
 class Customer(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    MEMBERSHIP_BRONZE = 'B'
+    MEMBERSHIP_SILVER = 'S'
+    MEMBERSHIP_GOLD = 'G'
+    
+    MEMBERSHIP_CHOICES = [
+        (MEMBERSHIP_BRONZE,'Bronze'),
+        (MEMBERSHIP_SILVER,'Silver'),
+        (MEMBERSHIP_GOLD,'Gold'),
+    ]
+    firstname = models.CharField(max_length=30)
+    lastname = models.CharField(max_length=30)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=50)
     birth_date = models.DateField(null=True)
-        
+    membership = models.CharField(max_length=1,choices=MEMBERSHIP_CHOICES,default=MEMBERSHIP_BRONZE)
+
+class Order(models.Model):
+    PAYMENT_PENDING = 'P'
+    PAYMENT_COMPLETE = 'C'
+    PAYMENT_FAILED = 'F'
+    PAYMENT_STATUS =[
+        (PAYMENT_PENDING,'Pending'),
+        (PAYMENT_COMPLETE,'Complete'),
+        (PAYMENT_FAILED,'Failed')
+    ]
+    placed_at = models.DateTimeField(auto_now=True)
+    payment_status = models.CharField(max_length=1,choices=PAYMENT_STATUS)
+         
