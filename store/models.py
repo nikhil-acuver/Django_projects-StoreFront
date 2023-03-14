@@ -34,6 +34,11 @@ class Customer(models.Model):
     phone = models.CharField(max_length=50)
     birth_date = models.DateField(null=True)
     membership = models.CharField(max_length=1,choices=MEMBERSHIP_CHOICES,default=MEMBERSHIP_BRONZE)
+    class Meta:
+        db_table = 'store_customers'
+        indexes = [
+            models.Index(fields=['lastname','firstname'])
+        ]
 
 class Order(models.Model):
     PAYMENT_PENDING = 'P'
@@ -59,6 +64,7 @@ class Address(models.Model):
     city = models.CharField(max_length=100)
     #customer = models.OneToOneField(Customer,on_delete=models.CASCADE,primary_key=True)
     customer = models.ForeignKey(Customer,on_delete=models.CASCADE)
+    zip_code = models.CharField(max_length=10,blank=True)
     
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
