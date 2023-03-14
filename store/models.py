@@ -9,7 +9,8 @@ class Collection(models.Model):
     search = models.CharField(max_length=200)
     featured_product = models.ForeignKey('Product',on_delete=models.SET_NULL,null=True,related_name='+')
 class Product(models.Model):
-    title = models.CharField(max_length=200)
+    unit_title = models.CharField(max_length=200)
+    slug = models.SlugField()
     description = models.TextField()
     price = models.DecimalField(max_digits=6,decimal_places=2)
     inventory = models.IntegerField()
